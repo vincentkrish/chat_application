@@ -1,0 +1,359 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<link href="/assets/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+<link href="stylesheets/style.css" rel="stylesheet">
+<h1> Let's begin the chat</h1>
+
+<div class="chat-container">
+    <div class="chat-box container-Sasi" style="right: 850">
+        <div class="sender-name" name="Sasi"> Sasi <i class="close">X</i> </div>
+        <div class="chat-content Sasi">
+            <div class="chat-inner-content">
+                <ul>
+                    <li class="me"> hai da</li>
+                    <li class="others"> Hey, Tel me :) </li>
+                    <li class="me"> Enna pandra</li>
+                    <li class="me"> What happen?</li>
+                    <li class="others"> In covai. u? </li>
+                    <li class="me"> In Banglore machi. searching job</li>
+                    <li class="others"> Good. in Which field? software?</li>
+                    <li class="me"> What happen?</li>
+                    <li class="others"> In covai. u? </li>
+                    <li class="me"> In Banglore machi. searching job</li>
+                    <li class="others"> Good. in Which field? software?</li>
+                </ul>
+            </div>
+        </div>
+        <input type="text" class="chat-input Sasi" placeholder="Enter message" />
+    </div>
+    <div class="chat-box container-Prabu" style="right: 550">
+        <div class="sender-name" name="Prabu"> Prabu <i class="close">X</i> </div>
+        <div class="chat-content Prabu">
+            <div class="chat-inner-content">
+                <ul>
+                    <li class="me"> hai da</li>
+                    <li class="others"> Hey, Tel me :) </li>
+                    <li class="me"> Enna pandra</li>
+                    <li class="me"> What happen?</li>
+                    <li class="others"> In covai. u? </li>
+                    <li class="me"> In Banglore machi. searching job</li>
+                    <li class="others"> Good. in Which field? software?</li>
+                    <li class="me"> What happen?</li>
+                    <li class="others"> In covai. u? </li>
+                    <li class="me"> In Banglore machi. searching job</li>
+                    <li class="others"> Good. in Which field? software?</li>
+                </ul>
+            </div>
+        </div>
+        <input type="text" class="chat-input Prabu" placeholder="Enter message" />
+    </div>
+    <div class="chat-box container-Brain">
+        <div class="sender-name" name="Brain"> Brain <i class="close">X</i></div>
+        <div class="chat-content Brain">
+            <div class="chat-inner-content">
+                <ul>
+                    <li class="me"> hai da</li>
+                    <li class="others"> Hey, Tel me :) </li>
+                    <li class="me"> Enna pandra</li>
+                    <li class="me"> What happen?</li>
+                    <li class="others"> In covai. u? </li>
+                    <li class="me"> In Banglore machi. searching job</li>
+                    <li class="others"> Good. in Which field? software?</li>
+                    <li class="me"> What happen?</li>
+                    <li class="others"> In covai. u? </li>
+                    <li class="me"> In Banglore machi. searching job</li>
+                    <li class="others"> Good. in Which field? software?</li>
+                </ul>
+            </div>
+        </div>
+        <input type="text" class="chat-input Brain" placeholder="Enter message" />
+    </div>
+    <div class="user-list">
+        <div class="open-state">
+            <div class="open-header">  minimize chat </div>
+            <ul>
+                <li id="1" name="Brain"> <i class="available"></i>Brain</li>
+                <li id="2" name="Prabu"> <i class="available"></i>Prabu</li>
+                <li id="3" name="Sasi"> <i class="un-available"></i>Sasi</li>
+                <li id="4" name="Saravanan"> <i class="available"></i>Saravanan</li>
+                <li id="5" name="Praveen"> <i class="un-available"></i>Praveen</li>
+                <li> <i class="available"></i>Brain</li>
+                <li> <i class="available"></i>Prabu</li>
+                <li> <i class="un-available"></i>Sasi</li>
+                <li> <i class="available"></i>Saravanan</li>
+                <li> <i class="un-available"></i>Praveen</li>
+                <li> <i class="available"></i>Brain</li>
+                <li> <i class="available"></i>Prabu</li>
+                <li> <i class="un-available"></i>Sasi</li>
+                <li> <i class="available"></i>Saravanan</li>
+                <li> <i class="un-available"></i>Praveen</li>
+                <!-- <li> <i class="fa fa-circle-o"></i> <i class="available"></i>Kums</li> -->
+                <!-- <li> <i class="fa fa-download"></i> <i class="un-available"> </i>Kumalti</li> -->
+            </ul>
+        </div>
+        <div class="close-state"> chat </div>
+    </div>
+</div>
+
+ <div id="chatHistory">
+    <div class="mine">
+        <p>hi from me </p>
+    </div>
+    <div class="others">
+        <p> hi from others </p>
+    </div>
+</div>
+
+<div class="chatBox">
+    <input type="text" name="chatBox" id="chatBox"/> <input type="button" value="Send" id="submit"/>
+</div> -->
+
+
+<style>
+    .chat-container {
+        position: absolute;
+        bottom: 10;
+        right: 10;
+        min-width:200px;
+    }
+    .user-list {
+        position: fixed;
+        bottom: 10px;
+    }
+    .open-state {
+        /*display: none;*/
+        border: 1px solid gray;
+        border-bottom: none;
+    }
+    .open-header {
+        width: 100px;
+        margin: auto;
+        padding: 10px 0;
+    }
+    ul {
+        padding-left: 0;
+        margin: 0;
+    }
+    li {
+        list-style: none;
+        border-top: 1px solid gainsboro;
+        padding: 5px 10px;
+    }
+    li i {
+        margin-right: 5px;
+    }
+/*    li:last-child{
+        list-style: none;
+        border-top: 1px solid red;
+        padding: 5px 10px;
+    }*/
+    .available {
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: green;
+        display: inline-block;
+    }
+    .un-available {
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        display: inline-block;
+    }
+    .close-state {
+        border: 1px solid gray;
+        padding: 5px 95px;
+    }
+
+
+    .chat-box {
+        position: fixed;
+        bottom: 10px;
+        right: 250px;
+        min-width: 250px;
+        border: 1px solid slategray;
+    }
+    .sender-name {
+        text-align: center;
+        border-bottom: 1px solid slategray;
+        padding: 5px 0;
+        background-color: steelblue;
+        color: #fff;
+        cursor: pointer;
+    }
+    .sender-name i {
+        font-style: normal;
+        color: white;
+        position: absolute;
+        right: 10;
+        font-family: monospace;
+    }
+    .chat-input {
+        width: 100%;
+        border: none;
+        border-top: 1px solid slategrey;
+        height: 40px;
+        padding-left: 10px;
+    }
+    .chat-content {
+        min-height: 150px;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    .ch/*at-inner-content {
+        min-height: 200px;
+        max-height: 400px;
+        overflow-y: scroll;
+        posi*/tion: relative;
+    }
+    .chat-content ul {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        /*overflow: visible;*/
+        /*height: 200px;*/
+    }
+    .me {
+        text-align: right;
+        background-color: skyblue;
+    }
+    .others {
+        background-color: slategrey;
+    }
+
+
+
+
+    .chatBox {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .chatBox input:first-of-type{
+        width: 50%;
+    }
+
+    #chatHistory div{
+        background: #EEE;
+        width: 80%;
+        min-height: 30px;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+    .mine {
+        float:  left;
+    }
+    /*.others {
+        float: right;
+    }
+    .others p{
+        text-align: right;
+    }*/
+
+</style>
+
+<script>
+
+    $('.close-state').click(function() {
+        $('.open-state').fadeToggle();
+    });
+
+    $('.open-header').click(function() {
+        $('.open-state').fadeOut();
+    });
+
+    newChart: $('.open-state ul li ').click(function() {
+        var name = $(this).attr('name');
+        var i =0;
+        var isExist = false;
+        $('.chat-box').each(function() {
+            i++
+            if ($(this).hasClass('container-'+ name)) {
+                $('.'+ name).fadeIn(1000);
+                isExist = true;
+            }
+        });
+        if (!isExist) {
+            var right = (i+1)*250 + i*50;
+            var html = '<div class="chat-box container-'+ name +'" style="right: '+ right +'">' +
+                '<div class="sender-name" name="'+ name +'"> '+ name +' <i class="close">X</i> </div>' +
+                '<div class="chat-content '+ name +'">' +
+                    '<div class="chat-inner-content">' +
+                        '<ul>' +
+                            '<li class="me"> hai da</li>' +
+                            '<li class="others"> Hey, Tel me :) </li>' +
+                            '<li class="me"> Enna pandra</li>' +
+                            '<li class="me"> What happen?</li>' +
+                            '<li class="others"> In covai. u? </li>' +
+                            '<li class="me"> In Banglore machi. searching job</li>' +
+                            '<li class="others"> Good. in Which field? software?</li>' +
+                            '<li class="me"> What happen?</li>' +
+                            '<li class="others"> In covai. u? </li>' +
+                            '<li class="me"> In Banglore machi. searching job</li>' +
+                            '<li class="others"> Good. in Which field? software?</li>' +
+                        '</ul>' +
+                    '</div>' +
+                '</div>' +
+                '<input type="text" class="chat-input '+ name +'" placeholder="Enter message" />' +
+            '</div>';
+            $('.chat-container').append(html);
+            hideAndDelete();
+        }
+    });
+
+    function hideAndDelete() {
+        $('.sender-name').unbind();
+        $('.close').unbind();
+        $('.sender-name').click(function() {
+          $('.'+$(this).attr('name')).fadeToggle(100);
+        });
+
+        $('.close').click(function() {
+            $('.container-'+$(this).parent().attr('name')).remove();
+            var i =0;
+            $('.chat-box').each(function() {
+                var right = (i+1)*250 + i*50;
+                i++
+                $(this).css('right', right);
+            });
+        });
+    }
+    hideAndDelete();
+
+    var socket = io();
+    $('#submit').click(function() {
+        $.ajax({
+            url: '/comments',
+            type: 'post',
+            data: {
+                comment: $('#chatBox').val()
+            },
+            suceess: function(data) {
+                console.log(data);
+                var newText = '<div class="mine">'+
+                    '<p>'+ $('#chatBox').val() +'</p>'+
+                    '</div>';
+                $('#chatHistory').append(newText);
+                $('#chatBox').val('');
+            },
+            failure: function(data) {
+                console.log(0);
+            }
+        });
+    });
+
+
+    socket.on('chat', function(data) {
+        console.log(data);
+         var newText = '<div class="mine">'+
+                '<p>'+ data.comment +'</p>'+
+                '</div>';
+            $('#chatHistory').append(newText);
+    });
+
+</script>
