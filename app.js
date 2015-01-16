@@ -7,10 +7,13 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var support = require('./routes/support');
+var customer = require('./routes/customer');
 
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var ioTemp = require('socket.io').listen(8081);
 
 // view engine setup
 var engine = require('ejs-locals');
@@ -35,27 +38,44 @@ app.use(session({
 app.use(require('less-middleware')(path.join(__dirname, 'public'), {force: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', routes);
-// app.use('/users', users);
+global.listener = {};
+// app.use(function(req, res, next) {
+//     if (req.url.indexOf('/status/') == -1) {
+//         io.on('connection', function(socket) {
+//                 console.log('inside main');
+//                 global.listener[socket.id] = socket;
+//                 // socket.on('disconnect', function(socket) {
+//                 //     //delete global.listeners[socket.id];
+//                 // });
+//         });
+//     }
+//     next();
+// });
 
 app.use(function(req, res, next) {
-    io.on('connection', function(socket) {
-        if (req.session.user) {
-            //global.userList[req.session.user.userId] = socket;
-            global.userList[socket.id] = socket;
-            // socket.on('disconnect', function(s) {
-            //     console.log(Object.keys(userList).length);
-            //     delete global.userList[req.session.user.userId];
-            // });
-        }
-
-    });
+    if (req.url.indexOf('/status/') == -1) {
+        ioTemp.on('connection', function(socket) {
+                console.log('inside ioTempioTempioTempioTempioTempioTempioTempioTemp');
+                global.listener[socket.id] = socket;
+                // socket.on('disconnect', function(socket) {
+                //     //delete global.listeners[socket.id];
+                // });
+        });
+    }
     next();
 });
 
+app.use(function(req, res, next) {
+    req.session.siteName = 'Chat Application';
+    req.session.restrictRegister = true;
+    next();
+});
 
+app.use('/', routes);
 app.use(users);
-// app.use(account);
+app.use(support);
+app.use(customer);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -63,14 +83,6 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-app.use(function(req, res, next) {
-    console.log(req.session);
-    req.session.siteName = 'Chat Application';
-    req.session.restrictRegister = true;
-    next();
-});
-
-global.userList = {}
 // error handlers
 
 // development error handler
@@ -88,7 +100,6 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    console.log(11111);
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
@@ -96,28 +107,9 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// app.use(function(req, res, next) {
-//     if (req.url.indexOf('/status/', -1) && req.url.indexOf('user_order_', -1)) { // to avoid unneccessary lisners count
-//         res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-//         // save current page to show trade menu on only book page, this variable used in menu.ejs
-//         app.locals.currentPage = req.url;
-
-//         req.session.csrfToken = req.csrfToken();
-//         app.locals.csrfToken = req.session.csrfToken;
-//         io = io(server);
-//         io.on('connection', function (socket) {
-//             global.listeners.push(socket);
-//             socket.on('tradeView', function (message) {
-//                 debug('trade view' + message) ;
-//             });
-//         });
-//     }
-//     next();
-// });
-
-
 http.listen(3000, function() {
-    console.log('listeninnnnnnnnnnnnnnnnnnnnnnnnng ');
+  console.log('Express server listening on port 3000');
 });
+
 
 module.exports = app;

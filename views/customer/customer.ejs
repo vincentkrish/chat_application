@@ -1,0 +1,98 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<link href="/assets/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<script src="emo-parser.js"></script>
+
+<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+<link href="stylesheets/style.css" rel="stylesheet">
+<h1> Let's begin the chat</h1>
+    <div class="customer">
+        <div class="customer-window">
+            <div class="open-state">
+                <div class="open-header">  Welcome to support <span> X </span></div>
+                <div id="customerFrom">
+                    <div class="request-support">
+                        <div class="form-element">
+                            <input type="text" name="customerName" id="customerName" placeholder="Enter your Name" autocomplete="off">
+                        </div>
+                        <div class="form-element">
+                            <input type="button" id="requestSupport" value="Submit"/>
+                        </div>
+                    </div>
+                    <div class="contact-support">
+                        <div class="chat-inner-content">
+                            <ul> </ul>
+                        </div>
+                        <div class="text-element">
+                            <textArea rows="2" name="chatMessage" id="chatMessage" placeholder="Enter your Message" class="chat-box"> </textArea>
+                            <div class="send-button">
+                                <img src="images/send_button.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="closed-state"> Live Chat </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var socket = io.connect('http://localhost:8081/customer');
+        $('.closed-state').click(function() {
+            $('.open-state').fadeToggle();
+        });
+
+        $('.open-header span').click(function() {
+            $('.open-state').fadeOut();
+        });
+
+        $('#requestSupport').click(function() {
+            initialize();
+        });
+
+        $('#customerName').keyup(function(e) {
+            if (e.which == 13) {
+                initialize();
+            }
+        });
+
+        function initialize() {
+            $('.contact-support').css('display', 'block');
+            $('.request-support').css('display', 'none');
+            socket.on($('#customerName').val(), function(data) {
+                var key = data.isReply ? 'others' : 'me';
+                var html = '<li class="'+ key +'"> '+ data.message +'</li>';
+                $('.chat-inner-content ul').append(html);
+                $('.open-state').fadeIn();
+            });
+        }
+        $('#chatMessage').keyup(function(e) {
+            if (e.which == 13) {
+                sendMessage();
+            }
+        });
+
+        $('.send-button').click(function() {
+            sendMessage();
+        });
+
+        function sendMessage() {
+            $.ajax({
+                url: '/status/message_support',
+                method: 'POST',
+                data: {
+                    customerName: $('#customerName').val(),
+                    message: $('#chatMessage').val()
+                },
+                success: function(data) {
+                    $('#chatMessage').val('');
+                }
+            });
+        };
+    });
+
+</script>

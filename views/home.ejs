@@ -1,9 +1,4 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<link href="/assets/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-<!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
 <link href="stylesheets/style.css" rel="stylesheet">
 <h1> Let's begin the chat</h1>
 
@@ -325,35 +320,35 @@
     }
     hideAndDelete();
 
-    var socket = io();
-    $('#submit').click(function() {
-        $.ajax({
-            url: '/comments',
-            type: 'post',
-            data: {
-                comment: $('#chatBox').val()
-            },
-            suceess: function(data) {
-                console.log(data);
-                var newText = '<div class="mine">'+
-                    '<p>'+ $('#chatBox').val() +'</p>'+
-                    '</div>';
-                $('#chatHistory').append(newText);
-                $('#chatBox').val('');
-            },
-            failure: function(data) {
-                console.log(0);
-            }
-        });
-    });
+    // var socket = io();
+    // $('#submit').click(function() {
+    //     $.ajax({
+    //         url: '/comments',
+    //         type: 'post',
+    //         data: {
+    //             comment: $('#chatBox').val()
+    //         },
+    //         suceess: function(data) {
+    //             console.log(data);
+    //             var newText = '<div class="mine">'+
+    //                 '<p>'+ $('#chatBox').val() +'</p>'+
+    //                 '</div>';
+    //             $('#chatHistory').append(newText);
+    //             $('#chatBox').val('');
+    //         },
+    //         failure: function(data) {
+    //             console.log(0);
+    //         }
+    //     });
+    // });
 
 
-    socket.on('chat', function(data) {
-        console.log(data);
-         var newText = '<div class="mine">'+
-                '<p>'+ data.comment +'</p>'+
-                '</div>';
-            $('#chatHistory').append(newText);
-    });
+    // socket.on('chat', function(data) {
+    //     console.log(data);
+    //      var newText = '<div class="mine">'+
+    //             '<p>'+ data.comment +'</p>'+
+    //             '</div>';
+    //         $('#chatHistory').append(newText);
+    // });
 
 </script>
