@@ -41,7 +41,8 @@
 
 <script>
     $(document).ready(function() {
-        var socket = io.connect('http://localhost:8081/customer');
+        //var socket = io.connect('http://localhost:8081/customer');
+        var socket = io();
         $('.closed-state').click(function() {
             $('.open-state').fadeToggle();
         });

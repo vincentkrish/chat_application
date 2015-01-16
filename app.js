@@ -39,24 +39,24 @@ app.use(require('less-middleware')(path.join(__dirname, 'public'), {force: true}
 app.use(express.static(path.join(__dirname, 'public')));
 
 global.listener = {};
-// app.use(function(req, res, next) {
-//     if (req.url.indexOf('/status/') == -1) {
-//         io.on('connection', function(socket) {
-//                 console.log('inside main');
-//                 global.listener[socket.id] = socket;
-//                 // socket.on('disconnect', function(socket) {
-//                 //     //delete global.listeners[socket.id];
-//                 // });
-//         });
-//     }
-//     next();
-// });
+app.use(function(req, res, next) {
+    if (req.url.indexOf('/status/') == -1) {
+        io.on('connection', function(socket) {
+                console.log('inside main');
+                global.listener[socket.id] = socket;
+                // socket.on('disconnect', function(socket) {
+                //     //delete global.listeners[socket.id];
+                // });
+        });
+    }
+    next();
+});
 
 app.use(function(req, res, next) {
     if (req.url.indexOf('/status/') == -1) {
         ioTemp.on('connection', function(socket) {
                 console.log('inside ioTempioTempioTempioTempioTempioTempioTempioTemp');
-                global.listener[socket.id] = socket;
+                // global.listener[socket.id] = socket;
                 // socket.on('disconnect', function(socket) {
                 //     //delete global.listeners[socket.id];
                 // });
